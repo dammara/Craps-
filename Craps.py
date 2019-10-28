@@ -14,126 +14,123 @@ def roll_dice():
 
 
 def create():
-    bank = print("How much money do you want to start with?")
+    print("How much money do you want to start with?")
     return int(input(">>> $"))
 
 
 def bet():
-    Ballin = print(f"How much money do you want to wager?")
+    print("How much money do you want to wager?")
     return int(input(">>> $"))
 
+
 def playGame():
+
     bank_roll = create()  # IMPORTANT!! Brings value typed and returned from create() and makes this line equal to create()
 
     if bank_roll <= 0:
         print("You cannot play without any cash. What a fucking broke boy!")
         print("No seriously, on everything, get your money up, not your funny up.")
         bank_roll = create()
-    choice = 1
-    while choice == 1:
 
+    choice = 1  # This is the 'restart' checkpoint.
+
+    while choice == 1:
+        print(f"You have ${bank_roll}.")
         all_in = bet()
+
         while all_in > bank_roll or all_in <= 0:
             print("Invalid Bet, please place a real bet, you cheating bitch!!")
             all_in = bet()
 
         input(f"Okay, you wanna bet ${all_in}? Press ENTER to Roll a dice.")
 
-        while bank_roll > 0:
+        roll = roll_dice()
+
+        print(f"You rolled a {roll}")
+
+        if roll == 7 or roll == 11:
+            bank_roll = bank_roll + all_in
+            print(f"You got {roll} on the first try!")
+            print(f"""You Win! Good Job bud.
+            Now you have ${bank_roll}.
+            Don't try walking out of here. I WILL rob you.""")
+            if bank_roll <= 0:
+                print("You ran out of money.")
+            input()
+            print('Wanna play again? Press 1 for Yes')
+            choice = int(input(">>>"))
+            if choice != 1 or 0:
+                print("Invalid input")
+                choice = int(input(">>>"))
+            if choice == 1 and bank_roll <= 0:
+                print("Since you're of money, let's restart from the beginning")
+                playGame()
+
+        elif roll == 2 or roll == 3 or roll == 12:
+            print("You lost. That's fucking embarrassing")
+            bank_roll = bank_roll - all_in
+            print(f"Now you have ${bank_roll}.")
+            if bank_roll <= 0:
+                print("You ran out of money.")
+            print('Wanna play again, you gambling addict? Press 1 for Yes, 0 for NO')
+            choice = int(input(">>>"))
+            if choice != 1 or 0:
+                print("Invalid input")
+                choice = int(input(">>>"))
+            if choice == 1 and bank_roll <= 0:
+                print("Since you're of money, let's restart from the beginning")
+                playGame()
+        else:
+            print(f"You got a {roll}, and must get {roll} again to win.")
+            input()
+
+            stored = roll
             roll = roll_dice()
 
-            print(f"You rolled a {roll}")
-
-            def the_replay():
-                replay = input("Would you like to play again? (Y/N) >>>").title()
-
-                if replay == "Y" or replay == "Yes":
-                    print("Okay, let's play again.")
-                    all_in = int(input(f"How much do you wanna bet out of your ${bank_roll}? >>> $"))
-
-                elif replay == "N" or replay == "No":
-                    print("Okay, have a nice day, LOSER")
-                    input()
-                    print("Oh, and thanks for the cash.")
-                    input()
-                    print(f"The computer takes your money. You now have $0!")
-                    exit()
-
-            if roll == 7 or roll == 11:
-                bank_roll = bank_roll + all_in
-                print(f"You got {roll} on the first try!")
-                print(f"""You Win! Good Job bud.
-                Now you have ${bank_roll}.
-                Don't try walking out of here. I WILL rob you.""")
+            while roll != stored and roll != 7:
+                print(f"You got a {roll}, let's try again.")
                 input()
-                print('Wanna play again? Press 1 for Yes, ENTER for No.')
-                choice = int(input(">>>"))
-                if choice == "":
-                    exit()
-
-            elif roll == 2 or roll == 3 or roll == 12:
-                print("You lost. That's fucking embarrassing")
-                input()
-                print('Wanna play again, you gambling addict? Press 1 for Yes, ENTER for No')
-                choice = int(input(">>>"))
-                if choice == "":
-                        exit()
-            else:
-                print(f"You got a {roll}, and must get {roll} again to win.")
-                input()
-
-                stored = roll
                 roll = roll_dice()
 
-                while roll != stored and roll != 7:
-                    print(f"You got a {roll}, let's try again.")
-                    input()
-                    roll = roll_dice()
-
-                if roll == stored:
-                    bank_roll = bank_roll + all_in
-                    print(f"You got a {roll} and won! You now have ${bank_roll}")
-                    input()
-                    print('Wanna play again? Press 1 for yes')
+            if roll == stored:
+                bank_roll = bank_roll + all_in
+                print(f"You got a {roll} and won! You now have ${bank_roll}")
+                input()
+                print('Wanna play again? Press 1 for Yes, 0 for NO')
+                choice = int(input(">>>"))
+                if choice != 1 or 0:
+                    print("Invalid input")
                     choice = int(input(">>>"))
-                    if choice == "":
-                        exit()
-                else:
-                    bank_roll = bank_roll - all_in
-                    print(f"You lost with a {roll}. Now you have ${bank_roll}.")
-                    input()
-                    print('Wanna play again, you gambling addict? Press 1 for Yes, ENTER for No')
+
+            else:
+                bank_roll = bank_roll - all_in
+                print(f"You lost with a {roll}. Now you have ${bank_roll}.")
+                input()
+                if bank_roll <= 0:
+                    print("You ran out of money.")
+                print('Wanna play again, you gambling addict? Press 1 for Yes, 0 for NO')
+                choice = int(input(">>>"))
+                if choice != 1 or 0:
+                    print("Invalid input")
                     choice = int(input(">>>"))
-                    if choice == "":
-                        exit()
-
-        print("Play again? Press 1 for Yes, ENTER for No.")
-        choice = int(input())
-        if choice == "":
-            exit()
-
-
-
-
-
-
-
-
-
+                if choice == 1 and bank_roll <= 0:
+                    print("Since you're out of money, let's restart from the beginning")
+                    playGame()
 
 
 # Begin Game
 
 # Splash Screen
-# print("HEY")
-#input()
-# print("Welcome to craps!")
-# input()
-# print("I know you're bored as shit, so let's gamble all your cash away.")
-# input()
+print("HEY")
+input()
+print("Welcome to craps!")
+input()
+print("I heard your professor has a gambling problem.")
+print("Let's try and make his addiction worse by gambling right in front of him.")
+input()
+print("Press 1 to play, Press 0 to protect your professor")
+decide = int(input(">>>"))
+if decide == 0:
+    exit()
 # execute, call defined functions
-# bank_roll = create()  # IMPORTANT!! Brings value typed and returned from create() and makes this line equal to create()
-
 playGame()
-
-# PROBLEMS --> Roll a good number; roll again crashes program.
