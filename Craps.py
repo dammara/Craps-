@@ -59,9 +59,8 @@ def playGame():
             input()
             print('Wanna play again? Press 1 for Yes')
             choice = int(input(">>>"))
-            if choice != 1 or 0:
-                print("Invalid input")
-                choice = int(input(">>>"))
+            if choice == 0:
+                exit()
             if choice == 1 and bank_roll <= 0:
                 print("Since you're of money, let's restart from the beginning")
                 playGame()
@@ -74,9 +73,8 @@ def playGame():
                 print("You ran out of money.")
             print('Wanna play again, you gambling addict? Press 1 for Yes, 0 for NO')
             choice = int(input(">>>"))
-            if choice != 1 or 0:
-                print("Invalid input")
-                choice = int(input(">>>"))
+            if choice == 0:
+                exit()
             if choice == 1 and bank_roll <= 0:
                 print("Since you're of money, let's restart from the beginning")
                 playGame()
@@ -98,9 +96,8 @@ def playGame():
                 input()
                 print('Wanna play again? Press 1 for Yes, 0 for NO')
                 choice = int(input(">>>"))
-                if choice != 1 or 0:
-                    print("Invalid input")
-                    choice = int(input(">>>"))
+                if choice == 0:
+                    exit()
 
             else:
                 bank_roll = bank_roll - all_in
@@ -110,9 +107,8 @@ def playGame():
                     print("You ran out of money.")
                 print('Wanna play again, you gambling addict? Press 1 for Yes, 0 for NO')
                 choice = int(input(">>>"))
-                if choice != 1 or 0:
-                    print("Invalid input")
-                    choice = int(input(">>>"))
+                if choice == 0:
+                    exit()
                 if choice == 1 and bank_roll <= 0:
                     print("Since you're out of money, let's restart from the beginning")
                     playGame()
